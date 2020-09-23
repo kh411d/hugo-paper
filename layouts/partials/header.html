@@ -62,6 +62,7 @@
     <link href="{{ "an-old-hope.min.css" | absURL }}" rel="stylesheet">
     <link href="{{ "style.css" | absURL }}" rel="stylesheet">
     <link href="{{ "custom.css" | absURL }}" rel="stylesheet">
+    <link href="{{ "syntax.css" | absURL }}" rel="stylesheet">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
@@ -89,9 +90,7 @@
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <!-- Misc -->
-    {{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
     {{- template "_internal/google_analytics_async.html" . }}
-    {{- end }}
     {{ if .HasShortcode "github_button" }}
       <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{end}}
@@ -122,7 +121,6 @@
                   <span class="icon-mail" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
               </a>
           </li>
-          &nbsp;
           {{end}}
           {{- if .Site.Params.linkedinName }}
           <li>
