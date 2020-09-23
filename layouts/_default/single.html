@@ -1,5 +1,4 @@
 {{- partial "header.html" . }}
-
 <article class="post-single">
   <header class="post-header">
     <h1 class="post-title">{{ .Title }}</h1>
@@ -9,7 +8,12 @@
       {{- .Date.Format "January 2, 2006" -}}
     </div>
   </header>
-  <div class="post-content">{{ .Content }}</div>
+  {{- partial "share.html" . -}}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+{{- partial "share-footer.html" . }}
   {{- if .Params.tags }}
   <footer class="post-footer">
     <ul class="post-tags">
@@ -41,5 +45,4 @@
   {{- end }}
   {{- end }}
 </article>
-
 {{- partial "footer.html" . }}

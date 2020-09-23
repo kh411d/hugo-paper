@@ -148,6 +148,11 @@ img {
   height: 65vh;
   min-height: 180px;
 }
+@media (max-width: 768px) {
+  .post-head.header {
+    height: 30vh;
+  }
+}
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -174,10 +179,11 @@ img {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
-  height: 38px;
+  height: 48px;
   padding: 1px 0 5px 0;
   width: auto;
   margin-top: 0.5em;
+  border-radius: 100%;
 }
 .menu {
   display: flex;
@@ -625,6 +631,95 @@ img {
 .footer a:hover {
   color: var(--primary);
   border-bottom: 1px solid var(--primary);
+}
+/* Sticky share
+------------------------------------------------*/
+.share {
+  text-align: center;
+  position: -webkit-sticky; /* Safari requirement */
+  position: sticky;
+}
+
+.share p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.share ul li {
+  display: inline-block;
+  margin-bottom: 9px;
+}
+
+.share ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.share ul li i.fa {
+  border: 1px solid #ddd;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.svgIcon {
+  vertical-align: middle;
+}
+
+.sticky-top-offset {
+  top: 10px;
+}
+
+.sticky-top-80 {
+  top: 10px;
+}
+
+.sticky-container {
+  position: absolute;
+  height: 100%;
+  left: -10%;
+}
+
+@media (min-width:1024px) {
+  .share ul li {
+      display: block;
+  }
+}
+
+.share,
+.share a {
+    color: rgba(0, 0, 0, .44);
+    fill: rgba(0, 0, 0, .44);
+}
+
+.share-footer {
+  display: none;
+  text-align:right;
+  color: rgba(0, 0, 0, .44);
+  fill: rgba(0, 0, 0, .44);
+}
+
+.share-footer ul li{
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .share {
+      margin-top: 30px;
+      display: none;
+  }
+  .share-footer {
+    display: inline;
+  }
+}
+
+.ml-1 {
+  margin-left: .25rem!important;
+}
+.mr-1 {
+  margin-right: .25rem!important;
 }
 /* 404
 -------------------------------------------------- */

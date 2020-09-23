@@ -1,0 +1,19 @@
+{{ if ne .Params.share false}}
+<section class="share-footer">
+  <h6>Share this {{ if .Type }}{{.Type}}{{else}}post{{end}}</h6>
+  <ul>
+      <li>
+        <a  style="font-size: 2.5em" href="https://twitter.com/share?text={{ .Title | safeHTML}}&nbsp;-&nbsp;{{ .Site.Title }}&amp;url={{ .Permalink }}"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <span class="icon-twitter"></span>
+        </a>
+      </li>
+      <li>
+        <a  style="font-size: 2.5em" href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <span class="icon-facebook"></span>
+        </a>
+      </li>
+  </ul>
+</section>
+{{end}}

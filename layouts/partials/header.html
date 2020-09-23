@@ -91,11 +91,10 @@
     <!-- Misc -->
     {{- if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
     {{- template "_internal/google_analytics_async.html" . }}
-    {{- template "_internal/opengraph.html" . }}
     {{- end }}
     {{ if .HasShortcode "github_button" }}
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  {{end}}
+      <script async defer src="https://buttons.github.io/buttons.js"></script>
+    {{end}}
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
     {{- if .IsHome }}
@@ -172,4 +171,4 @@
         </ul>
       </nav>
     </header>
-    <main class="main">
+    <main class="main">     
