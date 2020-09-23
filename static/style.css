@@ -9,7 +9,7 @@
 /* Theme
 -------------------------------------------------- */
 :root {
-  --gap: 24px;
+  --gap: 12px;
   --content-gap: 40px;
   --nav-width: 1024px;
   --main-width: 640px;
@@ -59,8 +59,7 @@ html {
 body {
   margin: 0;
   color: var(--primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-  'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   line-height: 1.8;
   word-break: break-word;
@@ -143,6 +142,12 @@ img {
 }
 /* Header
 -------------------------------------------------- */
+.post-head.header {
+  background: no-repeat center center;
+  background-size: cover;
+  height: 65vh;
+  min-height: 180px;
+}
 .nav {
   display: flex;
   flex-wrap: wrap;
@@ -164,6 +169,16 @@ img {
   font-size: 24px;
   font-weight: 700;
 }
+.logo img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  height: 38px;
+  padding: 1px 0 5px 0;
+  width: auto;
+  margin-top: 0.5em;
+}
 .menu {
   display: flex;
   list-style: none;
@@ -176,6 +191,94 @@ img {
 .menu a {
   font-size: 16px;
 }
+
+
+/* Icons, import the font file with the icons in it
+-------------------------------------------------- */
+@font-face {
+  font-family: 'genericons';
+  src: url('../fonts/Genericons/Genericons.eot');
+  src: url('../fonts/Genericons/Genericons.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Genericons/Genericons.woff') format('woff'),
+       url('../fonts/Genericons/Genericons.ttf') format('truetype'),
+       url('../fonts/Genericons/Genericons.svg#entypo') format('svg');
+  font-weight: normal; font-style: normal;
+}
+
+/* Apply these base styles to all icons */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "genericons", "Open Sans", sans-serif;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    text-decoration: none !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Each icon is created by inserting the correct character into the
+   content of the :before pseudo element. Like a boss. */
+.icon-github:before {
+    content: "\f200";
+}
+
+.icon-codepen:before {
+    content: "\f216";
+}
+
+.icon-hugo:before{
+    content:"\f216";
+}
+
+.icon-ghost:before {
+    content: "\f100";
+}
+.icon-feed:before {
+    content: "\f413";
+}
+.icon-twitter:before {
+    content: "\f202";
+}
+.icon-flickr:before {
+    content: "\f211";
+}
+.icon-mail:before {
+    content: "\f410";
+}
+.icon-google-plus:before {
+    content: "\f206";
+}
+.icon-facebook:before {
+    content: "\f203";
+}
+.icon-instagram:before {
+    content: "\f215";
+}
+.icon-pinterest:before {
+    content: "\f210";
+}
+.icon-linkedin:before {
+    content: "\f208";
+}
+.icon-arrow-left:before {
+    content: "\f431";
+}
+.icon-stats:before {
+    content: "\f508";
+}
+.icon-location:before {
+    content: "\f417";
+}
+.icon-link:before {
+    content: "\f442";
+}
+.icon-subscribe:before {
+	content:"\f463";
+}
+
 /* Main
 -------------------------------------------------- */
 .main {
@@ -456,6 +559,8 @@ img {
   margin: 0 0 0 calc(var(--gap) * -1);
   padding: 0 0 0 21px;
   border-left: 3px solid var(--primary);
+  font-style: italic;
+  font-family: 'Merriweather', serif;
 }
 .post-content hr {
   height: 1px;
@@ -467,6 +572,14 @@ img {
 }
 .post-content iframe {
   max-width: 100%;
+}
+.post-content img {
+  display: block;
+  height: auto;
+  padding: 0.6em 0;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 .post-footer {
   margin-top: 56px;

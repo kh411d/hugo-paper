@@ -3,6 +3,49 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:title" content="{{ .Title }}"/>
+    <meta name="twitter:description" content="{{if .IsPage}}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
+    <meta name="twitter:site" content="@{{ .Site.Params.twitterName }}"/>
+    
+    
+    {{ if .Params.image }}
+      <!-- Twitter summary card with large image must be at least 280x150px -->
+      <meta name="twitter:card" content="summary_large_image"/>
+      <meta name="twitter:image" content="{{ .Params.image  | absURL }}"/>
+    {{ else }}
+      {{if .Site.Params.cover}}
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:image" content="{{ .Site.Params.cover | absURL}}"/>
+      {{end}}
+    {{ end }}
+
+  	<meta property="og:title" content="{{ if ne .URL "/" }}{{ .Title }} &middot; {{ end }}{{ .Site.Title }}" />
+  	<meta property="og:site_name" content="{{ .Site.Title }}" />
+  	<meta property="og:url" content="{{ .Permalink }}" />
+
+    {{if .Params.image }}
+       <meta property="og:image" content="{{ .Params.image | relURL}}"/>
+    {{else}}
+        {{if .Site.Params.cover}}
+            <meta property="og:image" content="{{ .Site.Params.cover | relURL}}"/>
+        {{end}}
+    {{end}}
+
+    {{ if .IsPage }}
+    <meta property="og:description" content="{{ .Summary }}" />
+  	<meta property="og:type" content="article" />
+    <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" | safeHTML }}" />
+
+    {{ range .Params.tags }}
+    <meta property="article:tag" content="{{ . }}" />
+    {{ end }}
+    {{ else }}
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="{{ .Site.Params.description }}" />
+    {{ end }}
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title -->
     <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
@@ -15,12 +58,30 @@
     <meta name="author" content="{{ .Site.Author.name }}">
     {{- end }}
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Open+Sans&display=swap" rel="stylesheet">
     <link href="{{ "an-old-hope.min.css" | absURL }}" rel="stylesheet">
     <link href="{{ "style.css" | absURL }}" rel="stylesheet">
     <link href="{{ "custom.css" | absURL }}" rel="stylesheet">
     <!-- Favicons -->
-    <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | absURL }}">
-    <link rel="icon" href="{{ "favicon.ico" | absURL }}">
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel='icon' type='image/png' href='/images/favicon.png'>
+    <link rel="manifest" href="/images/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
     <!-- Generator -->
     {{- hugo.Generator }}
     <!-- RSS -->
@@ -32,74 +93,83 @@
     {{- template "_internal/google_analytics_async.html" . }}
     {{- template "_internal/opengraph.html" . }}
     {{- end }}
-    <!-- Script -->
-    <script>
-      function setTheme() {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          document.body.classList.add('dark');
-          return;
-        }
-
-        const time = new Date();
-        const prev = localStorage.getItem('date');
-        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
-
-        const now = time.getTime();
-        let sunrise;
-        let sunset;
-
-        function setBodyClass() {
-          if (now > sunrise && now < sunset) return;
-          document.body.classList.add('dark');
-        }
-
-        if (date !== prev) {
-          fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
-            .then((res) => res.json())
-            .then((data) => {
-              sunrise = data.sunrise.split(':').map(Number);
-              sunset = data.sunset.split(':').map(Number);
-            })
-            .catch(() => {
-              sunrise = [7, 0];
-              sunset = [19, 0];
-            })
-            .finally(() => {
-              sunrise = time.setHours(sunrise[0], sunrise[1], 0);
-              sunset = time.setHours(sunset[0], sunset[1], 0);
-              setBodyClass();
-              localStorage.setItem('sunrise', sunrise);
-              localStorage.setItem('sunset', sunset);
-            });
-          localStorage.setItem('date', date);
-        } else {
-          sunrise = Number(localStorage.getItem('sunrise'));
-          sunset = Number(localStorage.getItem('sunset'));
-          setBodyClass();
-        }
-      }
-    </script>
+    {{ if .HasShortcode "github_button" }}
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  {{end}}
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
-    <script>
-      setTheme();
-    </script>
+    {{- if .IsHome }}
     <header class="header">
+    {{- else }}
+    <header class="header post-head"  {{- if .Params.image }}style="background-image: url({{ .Params.Image }});"{{- end }}>
+    {{- end }}   
       <nav class="nav">
         {{- if .IsHome }}
-        <h1 class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></h1>
+        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a></h1>
         {{- else }}
-        <p class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></p>
+        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a></p>
         {{- end }}
-        {{- if .Site.Menus.main }}
         <ul class="menu">
+          {{- if .Site.Menus.main }}
           {{- range .Site.Menus.main }}
           <li>
             <a href="{{ .URL }}">{{ .Name }}</a>
           </li>
           {{- end }}
+          {{- end }}
+          {{ if .Site.Params.email }}
+          <li>
+              <a class="logo" href="mailto:{{ .Site.Params.email }}" target="_blank">
+                  <span class="icon-mail" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+          </li>
+          &nbsp;
+          {{end}}
+          {{- if .Site.Params.linkedinName }}
+          <li>
+            <a class="logo" href="https://www.linkedin.com/in/{{ .Site.Params.linkedinName }}" target="_blank">
+              <span class="icon-linkedin" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+          </a>
+          </li>
+          {{- end }}
+
+          {{ if .Site.Params.githubName }}
+          <li>
+              <a class="logo" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank">
+              <span class="icon-github" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+            </li>
+          {{end}}
+
+          {{ if .Site.Params.twitterName }}
+          <li>
+            <a class="logo" href="https://twitter.com/{{ .Site.Params.twitterName }}" target="_blank">
+                  <span class="icon-twitter" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+            </li>
+          {{end}}
+
+          {{ if .Site.Params.facebookName }}
+          <li>
+            <a class="logo" href="https://www.facebook.com/{{ .Site.Params.facebookName }}" target="_blank">
+                  <span class="icon-facebook" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+            </li>
+          {{end}}
+
+          {{ if .Site.Params.instagramName }}
+          <li>
+            <a class="logo" href="https://instagram.com/{{ .Site.Params.instagramName }}" target="_blank">
+                  <span class="icon-instagram" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+          </li>
+          {{end}}
+          <li>
+            <a class="logo" href="{{ "index.xml"| relURL}}" >
+              <span class="icon-subscribe" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+            </a>
+          </li>
         </ul>
-        {{- end }}
       </nav>
     </header>
     <main class="main">
