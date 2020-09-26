@@ -1,21 +1,23 @@
 <div class="sticky-container">
     <div class="share sticky-top sticky-top-offset">
-        <p>Share</p>
-        <ul>
+        <ul>       
+            <li class="ml-1 mr-1">
+                <clap-it style="width:2.2em;height:2.2em;fill:grey;stroke:grey;color:grey;margin:14px auto;" api="https://clapi.vercel.app/api/handler"/>
+            </li>
             <li class="ml-1 mr-1">
             <a target="_blank" href="https://twitter.com/intent/tweet?text={{ .Title }}&url={{ .Permalink }}" onclick="window.open(this.href, 'twitter-share', 'width=550,height=435');return false;">
-            <i class="icon-twitter"></i>
+            <i class="icon-twitter" style="font-size:1.8em"></i>
             </a>
             </li>
             
             <li class="ml-1 mr-1">
             <a target="_blank" href="https://facebook.com/sharer.php?u={{ .Permalink }}" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
-            <i class="icon-facebook"></i>
+            <i class="icon-facebook" style="font-size:1.8em"></i>
             </a>
             </li>     
         </ul>
 
-        {{ if .Params.comments }}
+        {{ if .Params.comment }}
             <div class="sep">
             </div>				
             <ul>

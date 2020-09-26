@@ -94,6 +94,7 @@
     {{ if .HasShortcode "github_button" }}
       <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{end}}
+    <script src="{{ "bundle.js" | absURL }}"></script>
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
     {{- if .IsHome }}
