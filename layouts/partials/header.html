@@ -97,17 +97,9 @@
     <script src="{{ "bundle.js" | absURL }}"></script>
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
-    {{- if .IsHome }}
-    <header class="header">
-    {{- else }}
-    <header class="header post-head"  {{- if .Params.image }}style="background-image: url({{ .Params.Image }});"{{- end }}>
-    {{- end }}   
+    <header class="header {{- if .Params.image }} post-head{{- end }}"  {{- if .Params.image }}style="background-image: url({{ .Params.Image }});"{{- end }}>
       <nav class="nav">
-        {{- if .IsHome }}
-        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a></h1>
-        {{- else }}
-        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a></p>
-        {{- end }}
+        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a>
         <ul class="menu">
           {{- if .Site.Menus.main }}
           {{- range .Site.Menus.main }}
