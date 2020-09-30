@@ -8,13 +8,16 @@
 {{- $paginator := .Paginate (where $scope.RegularPages ".Params.type" "!=" "page") 7 }}
 
 {{- range $index, $page := $paginator.Pages }}
-
-{{- $class := "post-entry" }}
+{{- $class := "post-entry lazy" }}
+{{ $style := printf "linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.7)), url(%s)" .Params.image | safeCSS }}
 {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0)) }}
 {{- $class = "first-entry" }}
+{{- $style = ""}}
 {{- else if .Data.Term }}
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
+
+{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0)) }}
 <article class="{{ $class }}">
   <header class="entry-header">
     <h2>{{ .Title }}</h2>
@@ -27,6 +30,16 @@
   </footer>
   <a class="entry-link" href="{{ .Permalink }}"></a>
 </article>
+{{- else }}
+<article class="{{ $class }}" data-bg-multi="{{ $style }}">
+  <footer class="entry-footer">
+    <h3>{{ .Title }}</h3>
+    <time>{{ .Date.Format "January 2, 2006" }}</time>
+  </footer>
+  <a class="entry-link" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+
 {{- end }}
 
 {{- if gt $paginator.TotalPages 1 }}
