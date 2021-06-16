@@ -140,6 +140,39 @@ img {
   display: block;
   max-width: 100%;
 }
+.clickme {
+  background-color: #EEEEEE;
+  padding: 1.5em 1.5em;
+  text-decoration:none;
+  font-weight:bold;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:100%;
+  display:block;
+  vertical-align: middle;
+  line-height: normal;
+  width: 70%;
+}
+.gmail-clr {
+  background-color: #BB001B;
+  color: #FFFFFF;
+}
+.twitter-clr {
+  background-color: #08a0e9;
+  color: #e8f5fd
+}
+.android-clr {
+  background-color: #a4c639;
+  color: #FFFFFF;
+}
+.whatsapp-clr {
+  background-color: #25d366;
+  color: #FFFFFF;
+}
+.telegram-clr {
+  background-color: #0088CC;
+  color: #FFFFFF;
+}
 /* Header
 -------------------------------------------------- */
 .post-head.header {
@@ -295,6 +328,18 @@ img {
 }
 .icon-subscribe:before {
 	content:"\f463";
+}
+.icon-phone:before {
+  content:"\f437";
+}
+.icon-chat:before{
+  content:"\f108";
+}
+.icon-comment:before{
+  content:"\f300";
+}
+.icon-image:before {
+  content: "\f102";
 }
 
 /* Main

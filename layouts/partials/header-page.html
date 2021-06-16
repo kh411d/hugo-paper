@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Twitter Card data -->
     <meta name="twitter:title" content="{{ .Title }}"/>
@@ -99,71 +100,10 @@
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
     <header class="header {{- if .Params.image }} lazy post-head{{- end }}"  {{- if .Params.image }}data-bg="{{ .Params.Image }}"{{- end }}>
-      <nav class="nav">
+      <nav class="nav" style="justify-content:normal;">
         <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" /></a>
-        <ul class="menu">
-          {{- if .Site.Menus.main }}
-          {{- range .Site.Menus.main }}
-          <li>
-            <a href="{{ .URL }}">{{ .Name }}</a>
-          </li>
-          {{- end }}
-          {{- end }}
-          {{ if .Site.Params.email }}
-          <li>
-              <a class="logo" href="mailto:{{ .Site.Params.email }}" target="_blank">
-                  <span class="icon-mail" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
-          {{- if .Site.Params.linkedinName }}
-          <li>
-            <a class="logo" href="https://www.linkedin.com/in/{{ .Site.Params.linkedinName }}" target="_blank">
-              <span class="icon-linkedin" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-          </a>
-          </li>
-          {{- end }}
-
-          {{ if .Site.Params.githubName }}
-          <li>
-              <a class="logo" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank">
-              <span class="icon-github" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.twitterName }}
-          <li>
-            <a class="logo" href="https://twitter.com/{{ .Site.Params.twitterName }}" target="_blank">
-                  <span class="icon-twitter" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.facebookName }}
-          <li>
-            <a class="logo" href="https://www.facebook.com/{{ .Site.Params.facebookName }}" target="_blank">
-                  <span class="icon-facebook" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.instagramName }}
-          <li>
-            <a class="logo" href="https://instagram.com/{{ .Site.Params.instagramName }}" target="_blank">
-                  <span class="icon-instagram" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
-          {{ if .Site.Params.eyeemName }}
-          <li>
-            <a class="logo" href="https://www.eyeem.com/u/{{ .Site.Params.eyeemName }}" target="_blank">
-                  <span class="icon-image" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
-        </ul>
-      </nav>
+    <h1 style="line-height: 2.2;">{{ .Title }}</h1>
+    </nav>
       {{- if .Params.imagecc }}
       <div class="imagecc">{{ .Params.imagecc }}</div>
       {{- end }}
