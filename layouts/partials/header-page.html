@@ -49,7 +49,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title -->
-    <title>{{ if .Title }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+    <title>{{ if .Title }}{{ .Title }} on {{ end }}{{ .Site.Title }}</title>
     <!-- Meta -->
     {{- if eq .Kind "page" }}
     <meta name="description" content="{{ .Summary }}">
@@ -100,9 +100,9 @@
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
     <header class="header {{- if .Params.image }} lazy post-head{{- end }}"  {{- if .Params.image }}data-bg="{{ .Params.Image }}"{{- end }}>
-      <nav class="nav" style="justify-content:normal;">
-        <a class="logo" href="{{ "" | absURL }}" style="speak:none;"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" style="speak:none;" /></a>
-    <h1 style="line-height: 2.2;">{{ .Title }}</h1>
+      <nav class="nav" style="justify-content:normal;" aria-hidden="true" tabindex="-1">
+        <a class="logo" href="{{ "" | absURL }}" aria-hidden="true" tabindex="-1"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" aria-hidden="true" tabindex = "-1" /></a>
+    <h1 style="line-height: 1.4;" aria-hidden="true" tabindex = "-1">{{ .Title }}</h1>
     </nav>
       {{- if .Params.imagecc }}
       <div class="imagecc">{{ .Params.imagecc }}</div>
