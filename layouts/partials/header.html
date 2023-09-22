@@ -116,21 +116,13 @@
               </a>
           </li>
           {{end}}
-          {{- if .Site.Params.linkedinName }}
+          {{- if .Site.Params.youtubeName }}
           <li>
-            <a class="logo" href="https://www.linkedin.com/in/{{ .Site.Params.linkedinName }}" target="_blank">
-              <span class="icon-linkedin" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+            <a class="logo" href="https://www.youtube.com/@{{ .Site.Params.youtubeName }}" target="_blank">
+              <span class="icon-youtube" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
           </a>
           </li>
           {{- end }}
-
-          {{ if .Site.Params.githubName }}
-          <li>
-              <a class="logo" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank">
-              <span class="icon-github" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
 
           {{ if .Site.Params.twitterName }}
           <li>
@@ -161,6 +153,13 @@
                   <span class="icon-image" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
               </a>
           </li>
+          {{end}}
+          {{ if .Site.Params.githubName }}
+          <li>
+              <a class="logo" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank">
+              <span class="icon-github" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
+              </a>
+            </li>
           {{end}}
         </ul>
       </nav>
