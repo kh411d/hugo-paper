@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Twitter Card data -->
-    <meta name="twitter:title" content="{{ .Title }}"/>
-    <meta name="twitter:description" content="{{if .IsPage}}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
-    <meta name="twitter:site" content="@{{ .Site.Params.twitterName }}"/>
+    <!-- x Card data -->
+    <meta name="x:title" content="{{ .Title }}"/>
+    <meta name="x:description" content="{{if .IsPage}}{{ .Summary }}{{ else }}{{ .Site.Params.description }}{{ end }}"/>
+    <meta name="x:site" content="@{{ .Site.Params.xName }}"/>
     
     
     {{ if .Params.image }}
-      <!-- Twitter summary card with large image must be at least 280x150px -->
-      <meta name="twitter:card" content="summary_large_image"/>
-      <meta name="twitter:image" content="{{ .Params.image  | absURL }}"/>
+      <!-- x summary card with large image must be at least 280x150px -->
+      <meta name="x:card" content="summary_large_image"/>
+      <meta name="x:image" content="{{ .Params.image  | absURL }}"/>
     {{ else }}
       {{if .Site.Params.cover}}
-        <meta name="twitter:card" content="summary_large_image"/>
-        <meta name="twitter:image" content="{{ .Site.Params.cover | absURL}}"/>
+        <meta name="x:card" content="summary_large_image"/>
+        <meta name="x:image" content="{{ .Site.Params.cover | absURL}}"/>
       {{end}}
     {{ end }}
 
@@ -52,10 +52,10 @@
     <!-- Meta -->
     {{- if eq .Kind "page" }}
     <meta name="description" content="{{ .Summary }}">
-    <meta name="author" content="{{ .Params.Author | default .Site.Author.name }}">
+    <meta name="author" content="{{ .Site.Params.Author.name }}">
     {{- else }}
     <meta name="description" content="{{ .Site.Params.description }}">
-    <meta name="author" content="{{ .Site.Author.name }}">
+    <meta name="author" content="{{ .Site.Params.Author.name }}">
     {{- end }}
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Open+Sans&display=swap" rel="stylesheet">
@@ -90,78 +90,21 @@
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <!-- Misc -->
-    {{- template "_internal/google_analytics_async.html" . }}
+    {{- partial "google_analytics_async.html" . }}
     {{ if .HasShortcode "github_button" }}
       <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{end}}
     <script src="{{ "bundle.js" | absURL }}"></script>
     <script src="{{ "lazyload.min.js" | absURL }}"></script>
+    <script>
+      async function getGravatarProfile(){try{let e=await fetch("https://api.gravatar.com/v3/profiles/khalidity",{method:"GET",headers:{Authorization:"Bearer 8648:gk-9GJROwPfjaGLcF2yZ6krpE-MNjoKm1qjSc_NctPmCmqqOGAK-2wD6y9BSWS0Z","Content-Type":"application/json"}});if(!e.ok)throw Error("Profile not found");let a=await e.json(),t=document.querySelector("ul.menu");t.insertAdjacentHTML("beforeend",`<li><a class="logo" href="mailto:`+a.contact_info.email+`" target="_blank"><img src="https://secure.gravatar.com/icons/mail.svg" alt="email" style="width:5em;height:5em;"></a></li>`),a.verified_accounts.forEach(e=>{e.is_hidden||t.insertAdjacentHTML("beforeend",`<li><a class="logo" href="`+e.url+`" target="_blank"><img src="`+e.service_icon+'" alt="'+e.service_label+`" style="width:5em;height:5em;"></a></li>`)})}catch(r){console.error("Error fetching Gravatar:",r)}}
+    </script>
   </head>
-  <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
-    <header class="header {{- if .Params.image }} lazy post-head{{- end }}"  {{- if .Params.image }}data-bg="{{ .Params.Image }}"{{- end }}>
+  <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}" onload="getGravatarProfile()">
+    <header class="header" >
       <nav class="nav">
-        <a class="logo" href="{{ "" | absURL }}"><img src="{{ .Site.Params.logo | relURL}}" alt="Home" style="speak:none;" /></a>
+        <a class="logo" href="{{ "" | absURL }}"><img src="https://gravatar.com/avatar/715dbdfe1973e789f70625174e56c99c4b8bb1d0c3c1cb2d9c39b512be0e1ecd" alt="Home" style="speak:none;" /></a>
         <ul class="menu">
-          {{- if .Site.Menus.main }}
-          {{- range .Site.Menus.main }}
-          <li>
-            <a href="{{ .URL }}">{{ .Name }}</a>
-          </li>
-          {{- end }}
-          {{- end }}
-          {{ if .Site.Params.email }}
-          <li>
-              <a class="logo" href="mailto:{{ .Site.Params.email }}" target="_blank">
-                  <span class="icon-mail" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
-          {{- if .Site.Params.linkedinName }}
-          <li>
-            <a class="logo" href="https://www.linkedin.com/in/{{ .Site.Params.linkedinName }}" target="_blank">
-              <span class="icon-linkedin" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-          </a>
-          </li>
-          {{- end }}
-
-          {{ if .Site.Params.githubName }}
-          <li>
-              <a class="logo" href="https://github.com/{{ .Site.Params.githubName }}" target="_blank">
-              <span class="icon-github" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.twitterName }}
-          <li>
-            <a class="logo" href="https://twitter.com/{{ .Site.Params.twitterName }}" target="_blank">
-                  <span class="icon-twitter" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.facebookName }}
-          <li>
-            <a class="logo" href="https://www.facebook.com/{{ .Site.Params.facebookName }}" target="_blank">
-                  <span class="icon-facebook" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-            </li>
-          {{end}}
-
-          {{ if .Site.Params.instagramName }}
-          <li>
-            <a class="logo" href="https://instagram.com/{{ .Site.Params.instagramName }}" target="_blank">
-                  <span class="icon-instagram" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
-          {{ if .Site.Params.eyeemName }}
-          <li>
-            <a class="logo" href="https://www.eyeem.com/u/{{ .Site.Params.eyeemName }}/photos" target="_blank">
-                  <span class="icon-image" style="color:var(--primary);font-size:2em;text-shadow: 0 0 5px white;"></span>
-              </a>
-          </li>
-          {{end}}
         </ul>
       </nav>
       {{- if .Params.imagecc }}

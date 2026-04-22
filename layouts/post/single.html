@@ -1,10 +1,10 @@
 {{- partial "header.html" . }}
 <article class="post-single">
-  <header class="post-header">
+  <header class="post-header pakehome">
     <h1 class="post-title">{{ .Title }}</h1>
     <div class="post-meta">
-      {{- if or .Params.Author .Site.Author.name }}
-      {{- .Params.Author | default .Site.Author.name }} · {{ end }}
+      {{- if or .Params.Author .Site.Params.Author.name }}
+      {{- .Params.Author | default .Site.Params.Author.name }} · {{ end }}
       {{- .Date.Format "January 2, 2006" -}}
     </div>
   </header>
@@ -26,10 +26,10 @@
   {{- end }}
   <!-- Comments area start -->
   {{- if not (eq .Params.comments false) }}
-  {{- if .Site.DisqusShortname }}
+  {{- if .Site.Params.DisqusShortname }}
   <div id="disqus_thread"></div>
   <script>
-    var disqus_shortname = '{{ .Site.DisqusShortname }}';
+    var disqus_shortname = '{{ .Site.Params.DisqusShortname }}';
     (function() {
       var d = document, s = d.createElement('script');
       s.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
